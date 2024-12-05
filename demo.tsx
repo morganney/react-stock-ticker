@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 
-const { StockTicker } = (await import(
-  process.env.NODE_ENV === 'development'
-    ? './src/stockTicker.js'
-    : 'react-stock-ticker'
-)) as typeof import('./src/stockTicker.js')
-const root = createRoot(document.getElementById('root') as HTMLDivElement)
+import { StockTicker } from './src/stockTicker.js'
+
 const getRandomBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min
 }
@@ -23,5 +19,6 @@ const Demo = () => {
 
   return <StockTicker fontSize="32px" price={price} />
 }
+const root = createRoot(document.body as HTMLBodyElement)
 
 root.render(<Demo />)
