@@ -1,6 +1,6 @@
 {
   "name": "react-stock-ticker",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0-rc.1",
   "description": "React stock ticker component for animating price changes.",
   "type": "module",
   "main": "dist/stockTicker.js",
@@ -26,7 +26,6 @@
     "test": "vitest run --coverage",
     "build": "duel",
     "build:vite": "npm run build && vite build",
-    "build:deploy": "npm run build && vite build --base=/morganney/",
     "preview": "npm run build:vite && vite preview",
     "prepack": "npm run build"
   },
@@ -42,6 +41,13 @@
   ],
   "author": "Morgan Ney <morganney@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/morganney/react-stock-ticker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/morganney/react-stock-ticker/issues"
+  },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
     "@knighted/duel": "^2.0.0-rc.2",
