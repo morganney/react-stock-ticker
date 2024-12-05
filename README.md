@@ -6,13 +6,15 @@
 
 React component for animating stock price changes.
 
-Check out the demo at https://morganney.github.io/react-stock-ticker.
-
 ```console
 npm i react-stock-ticker
 ```
 
-Then import it and add it to your app passing updated stock prices.
+## Demo
+
+https://morganney.github.io/react-stock-ticker
+
+## Example
 
 ```tsx
 import { useState, useEffect } from 'react'
@@ -39,4 +41,29 @@ const Demo = () => {
 }
 
 root.render(<Demo />)
+```
+
+## Props
+
+```ts
+type StockTickerProps = {
+  price: number
+  fontSize?: string
+  /* default price color. */
+  color?: string
+  /* color when price increases. */
+  upColor?: string
+  /* color when price decreases. */
+  downColor?: string
+  /* transition time in milliseconds. */
+  duration?: number
+  timingFunction?:
+    | 'ease'
+    | 'ease-in'
+    | 'ease-out'
+    | 'ease-in-out'
+    | 'linear'
+    | 'step-start'
+    | 'step-end'
+}
 ```

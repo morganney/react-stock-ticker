@@ -6,10 +6,13 @@ import { formatter, symbolList, getChangedChars } from './utils.js'
 type StockTickerProps = {
   price: number
   fontSize?: string
+  /* color of the price. */
   color?: string
+  /* color of the price when it goes up. */
   upColor?: string
+  /* color of the price when it goes down. */
   downColor?: string
-  /* transition time in milliseconds */
+  /* transition time in milliseconds. */
   duration?: number
   timingFunction?:
     | 'ease'
