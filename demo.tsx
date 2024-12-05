@@ -5,7 +5,7 @@ const { StockTicker } = (await import(
   process.env.NODE_ENV === 'development'
     ? './src/stockTicker.js'
     : 'react-stock-ticker'
-)) as typeof import('react-stock-ticker')
+)) as typeof import('./src/stockTicker.js')
 const root = createRoot(document.getElementById('root') as HTMLDivElement)
 const getRandomBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min
