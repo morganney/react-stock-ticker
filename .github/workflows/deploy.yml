@@ -34,7 +34,7 @@ jobs:
           name: npm-debug-log-${{ hashFiles('package-lock.json') }}
           path: npm-debug.log
       - name: Build
-        run: npm run build:vite
+        run: npm run build:deploy
       - name: Setup Pages
         uses: actions/configure-pages@v5.0.0
       - name: Upload artifact

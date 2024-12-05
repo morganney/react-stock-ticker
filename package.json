@@ -26,6 +26,7 @@
     "test": "vitest run --coverage",
     "build": "duel",
     "build:vite": "npm run build && vite build",
+    "build:deploy": "vite build --base=/react-stock-ticker/",
     "preview": "npm run build:vite && vite preview",
     "prepack": "npm run build"
   },
