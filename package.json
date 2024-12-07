@@ -14,6 +14,26 @@
         "types": "./dist/cjs/stockTicker.d.cts",
         "default": "./dist/cjs/stockTicker.cjs"
       }
+    },
+    "./hooks": {
+      "import": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.js"
+      },
+      "require": {
+        "types": "./dist/cjs/hooks.d.cts",
+        "default": "./dist/cjs/hooks.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.js"
+      },
+      "require": {
+        "types": "./dist/cjs/utils.d.cts",
+        "default": "./dist/cjs/utils.cjs"
+      }
     }
   },
   "engines": {
