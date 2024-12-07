@@ -1,6 +1,6 @@
 {
   "name": "react-stock-ticker",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "description": "React stock ticker component for animating price changes.",
   "type": "module",
   "main": "dist/stockTicker.js",
@@ -14,6 +14,26 @@
         "types": "./dist/cjs/stockTicker.d.cts",
         "default": "./dist/cjs/stockTicker.cjs"
       }
+    },
+    "./hooks": {
+      "import": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.js"
+      },
+      "require": {
+        "types": "./dist/cjs/hooks.d.cts",
+        "default": "./dist/cjs/hooks.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.js"
+      },
+      "require": {
+        "types": "./dist/cjs/utils.d.cts",
+        "default": "./dist/cjs/utils.cjs"
+      }
     }
   },
   "engines": {
@@ -24,6 +44,7 @@
     "checktypes": "tsc --noEmit",
     "lint": "eslint",
     "test": "vitest run --coverage",
+    "dev": "vite",
     "build": "duel",
     "build:vite": "npm run build && vite build",
     "build:deploy": "npm run build && vite build --base=/react-stock-ticker/",
