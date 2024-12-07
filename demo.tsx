@@ -12,13 +12,13 @@ const Demo = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setPrice((prevPrice) => prevPrice + getRandomBetween(-0.1, 0.15))
-    }, 5_000)
+    }, 3_500)
 
     return () => clearInterval(interval)
   }, [])
 
   return <StockTicker fontSize="32px" price={price} />
 }
-const root = createRoot(document.body as HTMLBodyElement)
+const root = createRoot(document.getElementById('root') as HTMLDivElement)
 
 root.render(<Demo />)

@@ -1,22 +1,3 @@
-# [`react-stock-ticker`](https://www.npmjs.com/package/react-stock-ticker)
-
-![CI](https://github.com/morganney/react-stock-ticker/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/gh/morganney/react-stock-ticker/graph/badge.svg?token=6MNXI4F2RJ)](https://codecov.io/gh/morganney/react-stock-ticker)
-[![NPM version](https://img.shields.io/npm/v/react-stock-ticker.svg)](https://www.npmjs.com/package/react-stock-ticker)
-
-React component for animating stock price changes.
-
-```console
-npm i react-stock-ticker
-```
-
-## Demo
-
-https://morganney.github.io/react-stock-ticker
-
-## Example
-
-```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -77,29 +58,3 @@ https://morganney.github.io/react-stock-ticker
     </script>
   </body>
 </html>
-```
-
-## Props
-
-```ts
-type StockTickerProps = {
-  price: number
-  fontSize?: string
-  /* default price color. */
-  color?: string
-  /* color when price increases. */
-  upColor?: string
-  /* color when price decreases. */
-  downColor?: string
-  /* transition time in milliseconds. */
-  duration?: number
-  timingFunction?:
-    | 'ease'
-    | 'ease-in'
-    | 'ease-out'
-    | 'ease-in-out'
-    | 'linear'
-    | 'step-start'
-    | 'step-end'
-}
-```

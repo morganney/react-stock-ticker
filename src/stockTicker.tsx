@@ -27,29 +27,22 @@ type StockTickerProps = {
 const containerBaseStyles: CSSProperties = {
   position: 'relative',
   overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
 }
 const priceStyles = {
-  display: 'flex',
-  opacity: 1,
   margin: 0,
   padding: 0,
 } satisfies CSSProperties
 const reelsStyles = {
-  display: 'flex',
   position: 'absolute',
   inset: 0,
   opacity: 0,
 } satisfies CSSProperties
 const charsXStyles = {
-  display: 'flex',
   position: 'absolute',
   inset: 0,
 } satisfies CSSProperties
 const charsYBaseStyles: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
+  display: 'inline-block',
 }
 
 const StockTicker: FC<StockTickerProps> = ({
@@ -82,6 +75,13 @@ const StockTicker: FC<StockTickerProps> = ({
 
   useLayoutEffect(() => {
     if (priceRef.current && reelsRef.current) {
+      priceRef.current.style.opacity = '1'
+      reelsRef.current.style.opacity = '0'
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (priceRef.current && reelsRef.current) {
       const widths: number[] = []
       const height = priceRef.current.getBoundingClientRect().height
       const charX = reelsRef.current.querySelectorAll<HTMLDivElement>('.charsX')
@@ -92,8 +92,7 @@ const StockTicker: FC<StockTickerProps> = ({
 
       if (
         Object.keys(changed).length &&
-        priceRef.current.style.opacity === '1' &&
-        reelsRef.current.style.opacity === '0'
+        priceRef.current.style.opacity === '1'
       ) {
         priceRef.current.style.opacity = '0'
         reelsRef.current.style.opacity = '1'
@@ -136,12 +135,16 @@ const StockTicker: FC<StockTickerProps> = ({
         })}
       </p>
       <div ref={reelsRef} style={reelsStyles}>
-        {Array.from({ length: chars.length }).map((_, index) => {
+        {chars.map((_, index) => {
           return (
             <div key={index} style={charsXStyles} className="charsX">
               <div className="charsY" style={charsYStyles}>
                 {symbolList.map((symbol) => {
-                  return <span key={symbol}>{symbol}</span>
+                  return (
+                    <span key={symbol} style={{ display: 'block' }}>
+                      {symbol}
+                    </span>
+                  )
                 })}
               </div>
             </div>

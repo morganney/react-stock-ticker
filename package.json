@@ -1,6 +1,6 @@
 {
   "name": "react-stock-ticker",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "description": "React stock ticker component for animating price changes.",
   "type": "module",
   "main": "dist/stockTicker.js",
@@ -24,6 +24,7 @@
     "checktypes": "tsc --noEmit",
     "lint": "eslint",
     "test": "vitest run --coverage",
+    "dev": "vite",
     "build": "duel",
     "build:vite": "npm run build && vite build",
     "build:deploy": "npm run build && vite build --base=/react-stock-ticker/",
