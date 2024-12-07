@@ -39,10 +39,12 @@ const reelsStyles = {
 } satisfies CSSProperties
 const charsXStyles = {
   position: 'absolute',
+  display: 'inline-flex',
   inset: 0,
 } satisfies CSSProperties
 const charsYBaseStyles: CSSProperties = {
-  display: 'inline-block',
+  display: 'inline-flex',
+  flexDirection: 'column',
 }
 
 const StockTicker: FC<StockTickerProps> = ({
@@ -140,11 +142,7 @@ const StockTicker: FC<StockTickerProps> = ({
             <div key={index} style={charsXStyles} className="charsX">
               <div className="charsY" style={charsYStyles}>
                 {symbolList.map((symbol) => {
-                  return (
-                    <span key={symbol} style={{ display: 'block' }}>
-                      {symbol}
-                    </span>
-                  )
+                  return <span key={symbol}>{symbol}</span>
                 })}
               </div>
             </div>
