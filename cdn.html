@@ -34,6 +34,8 @@
       } from 'https://esm.sh/react'
       import { createRoot } from 'https://esm.sh/react-dom/client'
       import { StockTicker } from 'https://esm.sh/react-stock-ticker'
+      import { usePrevious } from 'https://esm.sh/react-stock-ticker/hooks'
+      import { formatter } from 'https://esm.sh/react-stock-ticker/utils'
       import htm from 'https://esm.sh/htm'
 
       const html = htm.bind(createElement)
@@ -42,16 +44,22 @@
       }
       const App = () => {
         const [price, setPrice] = useState(999.85)
+        const prevPrice = usePrevious(price)
 
         useEffect(() => {
           const interval = setInterval(() => {
-            setPrice((prevPrice) => prevPrice + getRandomBetween(-0.1, 0.15))
+            setPrice((prev) => prev + getRandomBetween(-0.1, 0.15))
           }, 3_500)
 
           return () => clearInterval(interval)
         }, [])
 
-        return html`<${StockTicker} fontSize="32px" price=${price} />`
+        return html`
+          <div>
+            <${StockTicker} fontSize="32px" price=${price} />
+            <p>Previous: ${formatter.format(prevPrice)}</p>
+          </div>
+        `
       }
 
       createRoot(document.getElementById('root')).render(html`<${App} />`)

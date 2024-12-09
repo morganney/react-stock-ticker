@@ -21,11 +21,58 @@
         font-family: Roboto, sans-serif;
         background: #fff;
       }
+      section {
+        display: grid;
+        place-items: center;
+        gap: 24px;
+      }
+      h1,
+      p {
+        margin: 0;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      label {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+      fieldset {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 16px;
+        max-width: 450px;
+        display: grid;
+        gap: 8px;
+      }
+      fieldset > div {
+        display: grid;
+        gap: 8px;
+      }
+      legend {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      input[type='text'],
+      input[type='number'] {
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 75px;
+      }
+      select {
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
     </style>
     <title>react-stock-ticker</title>
   </head>
   <body>
-    <div id="root"></div>
+    <main id="root"></main>
     <script type="module" src="/demo.tsx"></script>
   </body>
 </html>

@@ -17,66 +17,36 @@ https://morganney.github.io/react-stock-ticker
 ## Example
 
 ```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet" />
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100dvh;
-      }
-      body {
-        display: grid;
-        place-items: center;
-        font-family: Roboto, sans-serif;
-        background: #fff;
-      }
-    </style>
-    <title>react-stock-ticker CDN</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module">
-      import React, {
-        useEffect,
-        useState,
-        createElement,
-      } from 'https://esm.sh/react'
-      import { createRoot } from 'https://esm.sh/react-dom/client'
-      import { StockTicker } from 'https://esm.sh/react-stock-ticker'
-      import htm from 'https://esm.sh/htm'
+<script type="module">
+  import React, {
+    useEffect,
+    useState,
+    createElement,
+  } from 'https://esm.sh/react'
+  import { createRoot } from 'https://esm.sh/react-dom/client'
+  import { StockTicker } from 'https://esm.sh/react-stock-ticker'
+  import htm from 'https://esm.sh/htm'
 
-      const html = htm.bind(createElement)
-      const getRandomBetween = (min, max) => {
-        return Math.random() * (max - min) + min
-      }
-      const App = () => {
-        const [price, setPrice] = useState(999.85)
+  const html = htm.bind(createElement)
+  const getRandomBetween = (min, max) => {
+    return Math.random() * (max - min) + min
+  }
+  const App = () => {
+    const [price, setPrice] = useState(999.85)
 
-        useEffect(() => {
-          const interval = setInterval(() => {
-            setPrice((prevPrice) => prevPrice + getRandomBetween(-0.1, 0.15))
-          }, 3_500)
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setPrice((prev) => prev + getRandomBetween(-0.1, 0.15))
+      }, 3_500)
 
-          return () => clearInterval(interval)
-        }, [])
+      return () => clearInterval(interval)
+    }, [])
 
-        return html`<${StockTicker} fontSize="32px" price=${price} />`
-      }
+    return html`<${StockTicker} fontSize="32px" price=${price} />`
+  }
 
-      createRoot(document.getElementById('root')).render(html`<${App} />`)
-    </script>
-  </body>
-</html>
+  createRoot(document.getElementById('root')).render(html`<${App} />`)
+</script>
 ```
 
 ## Props
