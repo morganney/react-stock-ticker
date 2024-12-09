@@ -1,6 +1,6 @@
 {
   "name": "react-stock-ticker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React stock ticker component for animating price changes.",
   "type": "module",
   "main": "dist/stockTicker.js",

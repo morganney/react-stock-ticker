@@ -29,9 +29,12 @@ const Demo = () => {
   const prevPrice = usePrevious(state.price)
   const handler = useCallback(
     (evt: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const { name, value } = evt.target
+      const { name, value, type } = evt.target
 
-      dispatch({ ...state, [name]: value })
+      dispatch({
+        ...state,
+        [name]: type === 'number' ? parseInt(value) : value,
+      })
     },
     [state]
   )
