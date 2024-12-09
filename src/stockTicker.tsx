@@ -72,7 +72,7 @@ const StockTicker: FC<StockTickerProps> = ({
   const charsYStyles = {
     ...charsYBaseStyles,
     color,
-    transition: `transform ${duration}ms ${timingFunction}, color ${duration + 300}ms ${timingFunction}`,
+    transition: `transform ${duration}ms ${timingFunction}, color ${Number(duration) + 300}ms ${timingFunction}`,
   }
 
   useLayoutEffect(() => {
