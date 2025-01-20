@@ -23,7 +23,7 @@ const Demo = () => {
     color: '#000000',
     upColor: '#008000',
     downColor: '#FF0000',
-    duration: 350,
+    duration: 650,
     timingFunction: 'ease-out',
   })
   const prevPrice = usePrevious(state.price)
