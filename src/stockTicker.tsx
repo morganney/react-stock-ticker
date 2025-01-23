@@ -1,10 +1,17 @@
-import { type FC, type CSSProperties, useRef, useLayoutEffect } from 'react'
+import {
+  type FC,
+  type CSSProperties,
+  useRef,
+  useLayoutEffect,
+  useMemo,
+} from 'react'
 
 import { usePrevious } from './hooks.js'
-import { formatter, symbolList, getChangedChars } from './utils.js'
+import { type Locale, getMetaForLocale, getChangedChars } from './utils.js'
 
 type StockTickerProps = {
   price: number
+  locale?: Locale
   fontSize?: string
   /* color of the price. */
   color?: string
@@ -49,6 +56,7 @@ const charsYBaseStyles: CSSProperties = {
 
 const StockTicker: FC<StockTickerProps> = ({
   price,
+  locale = 'en-US',
   fontSize = '24px',
   color = 'black',
   upColor = 'green',
@@ -59,6 +67,10 @@ const StockTicker: FC<StockTickerProps> = ({
   const priceRef = useRef<HTMLDivElement>(null)
   const reelsRef = useRef<HTMLDivElement>(null)
   const prevPrice = usePrevious(price)
+  const { formatter, symbols } = useMemo(
+    () => getMetaForLocale(locale),
+    [locale]
+  )
   const charString = formatter.format(price)
   const prevCharString = formatter.format(prevPrice)
   const changed = getChangedChars(prevCharString, charString)
@@ -102,7 +114,7 @@ const StockTicker: FC<StockTickerProps> = ({
 
       charX.forEach((reel, index) => {
         const charY = reel.querySelector<HTMLDivElement>('.charsY')
-        const indexOfChar = symbolList.indexOf(chars[index])
+        const indexOfChar = symbols.indexOf(chars[index])
         const translateY = -indexOfChar * height
         const translateX = widths
           .slice(0, index)
@@ -127,7 +139,7 @@ const StockTicker: FC<StockTickerProps> = ({
         }
       })
     }
-  }, [chars, changed, trend, color, upColor, downColor])
+  }, [chars, changed, trend, symbols, color, upColor, downColor])
 
   return (
     <div style={containerStyles}>
@@ -141,7 +153,7 @@ const StockTicker: FC<StockTickerProps> = ({
           return (
             <div key={index} style={charsXStyles} className="charsX">
               <div className="charsY" style={charsYStyles}>
-                {symbolList.map((symbol) => {
+                {symbols.map((symbol) => {
                   return <span key={symbol}>{symbol}</span>
                 })}
               </div>
