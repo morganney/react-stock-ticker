@@ -33,12 +33,6 @@ const localesCurrencyCountry = [
   ['ex-MX', { currency: 'MXN', country: 'Mexico' }],
   ['en-CA', { currency: 'CAD', country: 'Canada' }],
 ] as const
-export const formatter = new Intl.NumberFormat('en-us', {
-  style: 'currency',
-  currency: 'USD',
-  maximumFractionDigits: 2,
-  minimumFractionDigits: 2,
-})
 export const getChangedChars = (start: string, end: string) => {
   const changes: Record<number, ChangedChar> = {}
 
@@ -79,21 +73,6 @@ export const getChangedChars = (start: string, end: string) => {
 
   return changes
 }
-export const symbolList = [
-  '9',
-  '8',
-  '7',
-  '6',
-  '5',
-  '4',
-  '3',
-  '2',
-  '1',
-  '0',
-  '$',
-  ',',
-  '.',
-]
 const localeCurrencyMap = new Map<Locale, CurrencyCountry>(
   localesCurrencyCountry
 )
@@ -109,6 +88,7 @@ const getSymbolsForLocale = (locale: Locale): [string[], Intl.NumberFormat] => {
   const symbols: string[] = []
   let currency = '$'
   let group = ','
+  // There are zero-decimal currencies like JPY
   let decimal: string | undefined = undefined
 
   parts.forEach((part) => {
@@ -145,7 +125,7 @@ const getSymbolsForLocale = (locale: Locale): [string[], Intl.NumberFormat] => {
 
   return [symbols, formatter]
 }
-export const getMetaForLocale = (locale: Locale) => {
+export const getLocaleMetadata = (locale: Locale) => {
   const intlLocale = new Intl.Locale(locale)
   const documentDirection = getComputedStyle(document.body).direction
   const [symbols, formatter] = getSymbolsForLocale(locale)

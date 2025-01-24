@@ -7,8 +7,7 @@ import React, {
 import { createRoot } from 'react-dom/client'
 
 import { StockTicker, type StockTickerProps } from './src/stockTicker.js'
-import { usePrevious } from './src/hooks.js'
-import { formatter } from './src/utils.js'
+import { usePrevious, useLocaleMetadata } from './src/hooks.js'
 
 const reducer = (state: StockTickerProps, action: StockTickerProps) => {
   return { ...state, ...action }
@@ -17,6 +16,7 @@ const getRandomBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min
 }
 const Demo = () => {
+  const { formatter } = useLocaleMetadata('en-US')
   const [state, dispatch] = useReducer(reducer, {
     price: 999.85,
     fontSize: '36px',

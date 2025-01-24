@@ -1,13 +1,7 @@
-import {
-  type FC,
-  type CSSProperties,
-  useRef,
-  useLayoutEffect,
-  useMemo,
-} from 'react'
+import { type FC, type CSSProperties, useRef, useLayoutEffect } from 'react'
 
-import { usePrevious } from './hooks.js'
-import { type Locale, getMetaForLocale, getChangedChars } from './utils.js'
+import { usePrevious, useLocaleMetadata } from './hooks.js'
+import { type Locale, getChangedChars } from './utils.js'
 
 type StockTickerProps = {
   price: number
@@ -53,7 +47,6 @@ const charsYBaseStyles: CSSProperties = {
   display: 'inline-flex',
   flexDirection: 'column',
 }
-
 const StockTicker: FC<StockTickerProps> = ({
   price,
   locale = 'en-US',
@@ -64,13 +57,10 @@ const StockTicker: FC<StockTickerProps> = ({
   duration = 350,
   timingFunction = 'ease-out',
 }) => {
+  const { formatter, symbols } = useLocaleMetadata(locale)
   const priceRef = useRef<HTMLDivElement>(null)
   const reelsRef = useRef<HTMLDivElement>(null)
   const prevPrice = usePrevious(price)
-  const { formatter, symbols } = useMemo(
-    () => getMetaForLocale(locale),
-    [locale]
-  )
   const charString = formatter.format(price)
   const prevCharString = formatter.format(prevPrice)
   const changed = getChangedChars(prevCharString, charString)
