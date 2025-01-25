@@ -1,8 +1,9 @@
 import React from 'react'
 import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
+import '@testing-library/jest-dom/vitest'
 
-import { StockTicker } from '../src/stockTicker'
+import { StockTicker } from '../src/stockTicker.js'
 
 describe('StockTicker', () => {
   it('renders the price', () => {

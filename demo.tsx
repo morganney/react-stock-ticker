@@ -18,7 +18,7 @@ const getRandomBetween = (min: number, max: number) => {
 const Demo = () => {
   const { formatter } = useLocaleMetadata('en-US')
   const [state, dispatch] = useReducer(reducer, {
-    price: 999.85,
+    price: 147.02,
     fontSize: '36px',
     color: '#000000',
     upColor: '#008000',

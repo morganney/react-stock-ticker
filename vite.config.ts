@@ -10,9 +10,12 @@ export default defineConfig({
     outDir: 'build',
   },
   test: {
+    globals: true,
     environment: 'jsdom',
     include: ['test/stockTicker.tsx'],
-    setupFiles: './test.setup.ts',
+    typecheck: {
+      tsconfig: 'tsconfig.tools.json',
+    },
     coverage: {
       provider: 'v8',
       include: ['src'],
