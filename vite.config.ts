@@ -13,9 +13,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: ['test/stockTicker.tsx'],
-    typecheck: {
-      tsconfig: 'tsconfig.tools.json',
-    },
     coverage: {
       provider: 'v8',
       include: ['src'],

@@ -1,6 +1,6 @@
 import { type FC, type CSSProperties, useRef, useLayoutEffect } from 'react'
 
-import { usePrevious, useLocaleMetadata } from './hooks.js'
+import { usePrevious, useLocaleMetadata, useIsFirstRender } from './hooks.js'
 import { type Locale, getChangedChars } from './utils.js'
 
 type StockTickerProps = {
@@ -32,6 +32,7 @@ const containerBaseStyles: CSSProperties = {
 const priceStyles = {
   margin: 0,
   padding: 0,
+  opacity: 1,
 } satisfies CSSProperties
 const reelsStyles = {
   position: 'absolute',
@@ -58,6 +59,7 @@ const StockTicker: FC<StockTickerProps> = ({
   timingFunction = 'ease-out',
 }) => {
   const { formatter, symbols } = useLocaleMetadata(locale)
+  const isFirstRender = useIsFirstRender()
   const priceRef = useRef<HTMLDivElement>(null)
   const reelsRef = useRef<HTMLDivElement>(null)
   const prevPrice = usePrevious(price)
@@ -66,6 +68,8 @@ const StockTicker: FC<StockTickerProps> = ({
   const changed = getChangedChars(prevCharString, charString)
   const trend = price > prevPrice ? 'up' : 'down'
   const chars = charString.split('')
+  const transformMs = isFirstRender ? 0 : duration
+  const colorMs = Number(duration) + 300
   const containerStyles = {
     fontSize,
     color,
@@ -74,15 +78,8 @@ const StockTicker: FC<StockTickerProps> = ({
   const charsYStyles = {
     ...charsYBaseStyles,
     color,
-    transition: `transform ${duration}ms ${timingFunction}, color ${Number(duration) + 300}ms ${timingFunction}`,
+    transition: `transform ${transformMs}ms ${timingFunction}, color ${colorMs}ms ${timingFunction}`,
   }
-
-  useLayoutEffect(() => {
-    if (priceRef.current && reelsRef.current) {
-      priceRef.current.style.opacity = '1'
-      reelsRef.current.style.opacity = '0'
-    }
-  }, [])
 
   useLayoutEffect(() => {
     if (priceRef.current && reelsRef.current) {

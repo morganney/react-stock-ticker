@@ -3,8 +3,9 @@ import React, {
   useEffect,
   useReducer,
   useCallback,
+  useState,
+  useRef,
 } from 'react'
-import { createRoot } from 'react-dom/client'
 
 import { StockTicker, type StockTickerProps } from './src/stockTicker.js'
 import { usePrevious, useLocaleMetadata } from './src/hooks.js'
@@ -16,6 +17,8 @@ const getRandomBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min
 }
 const Demo = () => {
+  const ref = useRef<HTMLElement>(null)
+  const [loaded, setLoaded] = useState(false)
   const { formatter } = useLocaleMetadata('en-US')
   const [state, dispatch] = useReducer(reducer, {
     price: 147.02,
@@ -40,6 +43,19 @@ const Demo = () => {
   )
 
   useEffect(() => {
+    document.fonts.addEventListener('loadingdone', () => {
+      ref.current?.classList.add('loaded')
+      setLoaded(true)
+    })
+    document.fonts.add(
+      new FontFace(
+        'Roboto',
+        'url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2)'
+      )
+    )
+  }, [])
+
+  useEffect(() => {
     const interval = setInterval(() => {
       dispatch({ price: prevPrice + getRandomBetween(-0.1, 0.15) })
     }, 3_500)
@@ -48,14 +64,14 @@ const Demo = () => {
   }, [prevPrice])
 
   return (
-    <section>
+    <section ref={ref}>
       <h1>
         <a href="https://www.npmjs.com/package/react-stock-ticker">
           <code>react-stock-ticker</code>
         </a>
       </h1>
       <div>
-        <StockTicker {...state} />
+        {loaded && <StockTicker {...state} />}
         <p>Previous: {formatter.format(prevPrice)}</p>
       </div>
       <form>
@@ -131,6 +147,5 @@ const Demo = () => {
     </section>
   )
 }
-const root = createRoot(document.querySelector('main')!)
 
-root.render(<Demo />)
+export { Demo }

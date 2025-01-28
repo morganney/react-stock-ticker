@@ -14,3 +14,12 @@ export const usePrevious = <T>(value: T) => {
 export const useLocaleMetadata = (locale: Locale) => {
   return useMemo(() => getLocaleMetadata(locale), [locale])
 }
+export const useIsFirstRender = () => {
+  const ref = useRef(true)
+
+  useEffect(() => {
+    ref.current = false
+  }, [])
+
+  return ref.current
+}

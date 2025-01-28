@@ -11,6 +11,7 @@
   "include": [
     "vite.config.ts",
     "demo.tsx",
+    "index.tsx",
     "eslint.config.js",
     "test.setup.ts",
     "test/stockTicker.tsx"

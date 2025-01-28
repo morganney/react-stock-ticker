@@ -44,6 +44,7 @@ const config = tseslint.config(
     files: [
       'eslint.config.js',
       'demo.tsx',
+      'index.tsx',
       'vite.config.ts',
       'test.setup.ts',
       'test/stockTicker.tsx',
