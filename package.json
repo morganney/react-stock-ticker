@@ -41,11 +41,11 @@
   },
   "scripts": {
     "prettier": "prettier --write .",
-    "checktypes": "tsc --noEmit",
+    "checktypes": "tsc --noEmit -p tsconfig.src.json",
     "lint": "eslint",
     "test": "vitest run --coverage",
     "dev": "vite",
-    "build": "duel",
+    "build": "duel -p tsconfig.src.json",
     "build:vite": "npm run build && vite build",
     "build:deploy": "npm run build && vite build --base=/react-stock-ticker/",
     "preview": "npm run build:vite && vite preview",

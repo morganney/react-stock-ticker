@@ -1,4 +1,3 @@
-import React from 'react'
 import { describe, it, expect, beforeAll } from 'vitest'
 import { render, renderHook } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'

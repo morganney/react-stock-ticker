@@ -4,8 +4,19 @@
     "target": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
-    "declaration": true,
-    "outDir": "dist"
+    "declaration": false,
+    "allowJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["vitest/globals"]
   },
-  "include": ["src"]
+  "include": [
+    "custom.d.ts",
+    "eslint.config.js",
+    "vite.config.ts",
+    "demo.tsx",
+    "index.tsx",
+    "test.setup.ts",
+    "test/stockTicker.tsx"
+  ]
 }

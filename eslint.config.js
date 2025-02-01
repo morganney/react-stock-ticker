@@ -11,7 +11,7 @@ const config = tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        project: true,
+        project: ['tsconfig.json', 'tsconfig.src.json'],
         ecmaFeatures: {
           jsx: true,
         },
@@ -38,29 +38,6 @@ const config = tseslint.config(
       ...reactHooks.configs.recommended.rules,
       ...jsxA11y.configs.recommended.rules,
       'no-console': 'error',
-    },
-  },
-  {
-    files: [
-      'eslint.config.js',
-      'demo.tsx',
-      'index.tsx',
-      'vite.config.ts',
-      'test.setup.ts',
-      'test/stockTicker.tsx',
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: './tsconfig.tools.json',
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ...globals.es2015,
-      },
     },
   },
   {
