@@ -32,7 +32,6 @@ const containerBaseStyles: CSSProperties = {
 const priceStyles = {
   margin: 0,
   padding: 0,
-  opacity: 1,
 } satisfies CSSProperties
 const reelsStyles = {
   position: 'absolute',

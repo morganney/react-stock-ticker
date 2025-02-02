@@ -8,7 +8,6 @@ export default defineConfig({
     outDir: 'build',
   },
   test: {
-    globals: true,
     environment: 'jsdom',
     include: ['test/stockTicker.tsx'],
     coverage: {
