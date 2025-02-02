@@ -1,10 +1,11 @@
 import { type FC, type CSSProperties, useRef, useLayoutEffect } from 'react'
 
-import { usePrevious } from './hooks.js'
-import { formatter, symbolList, getChangedChars } from './utils.js'
+import { usePrevious, useLocaleMetadata, useIsFirstRender } from './hooks.js'
+import { type Locale, getChangedChars } from './utils.js'
 
 type StockTickerProps = {
   price: number
+  locale?: Locale
   fontSize?: string
   /* color of the price. */
   color?: string
@@ -46,9 +47,9 @@ const charsYBaseStyles: CSSProperties = {
   display: 'inline-flex',
   flexDirection: 'column',
 }
-
 const StockTicker: FC<StockTickerProps> = ({
   price,
+  locale = 'en-US',
   fontSize = '24px',
   color = 'black',
   upColor = 'green',
@@ -56,6 +57,8 @@ const StockTicker: FC<StockTickerProps> = ({
   duration = 350,
   timingFunction = 'ease-out',
 }) => {
+  const { formatter, symbols } = useLocaleMetadata(locale)
+  const isFirstRender = useIsFirstRender()
   const priceRef = useRef<HTMLDivElement>(null)
   const reelsRef = useRef<HTMLDivElement>(null)
   const prevPrice = usePrevious(price)
@@ -64,6 +67,8 @@ const StockTicker: FC<StockTickerProps> = ({
   const changed = getChangedChars(prevCharString, charString)
   const trend = price > prevPrice ? 'up' : 'down'
   const chars = charString.split('')
+  const transformMs = isFirstRender ? 0 : duration
+  const colorMs = Number(duration) + 300
   const containerStyles = {
     fontSize,
     color,
@@ -72,15 +77,8 @@ const StockTicker: FC<StockTickerProps> = ({
   const charsYStyles = {
     ...charsYBaseStyles,
     color,
-    transition: `transform ${duration}ms ${timingFunction}, color ${Number(duration) + 300}ms ${timingFunction}`,
+    transition: `transform ${transformMs}ms ${timingFunction}, color ${colorMs}ms ${timingFunction}`,
   }
-
-  useLayoutEffect(() => {
-    if (priceRef.current && reelsRef.current) {
-      priceRef.current.style.opacity = '1'
-      reelsRef.current.style.opacity = '0'
-    }
-  }, [])
 
   useLayoutEffect(() => {
     if (priceRef.current && reelsRef.current) {
@@ -102,7 +100,7 @@ const StockTicker: FC<StockTickerProps> = ({
 
       charX.forEach((reel, index) => {
         const charY = reel.querySelector<HTMLDivElement>('.charsY')
-        const indexOfChar = symbolList.indexOf(chars[index])
+        const indexOfChar = symbols.indexOf(chars[index])
         const translateY = -indexOfChar * height
         const translateX = widths
           .slice(0, index)
@@ -127,7 +125,7 @@ const StockTicker: FC<StockTickerProps> = ({
         }
       })
     }
-  }, [chars, changed, trend, color, upColor, downColor])
+  }, [chars, changed, trend, symbols, color, upColor, downColor])
 
   return (
     <div style={containerStyles}>
@@ -141,7 +139,7 @@ const StockTicker: FC<StockTickerProps> = ({
           return (
             <div key={index} style={charsXStyles} className="charsX">
               <div className="charsY" style={charsYStyles}>
-                {symbolList.map((symbol) => {
+                {symbols.map((symbol) => {
                   return <span key={symbol}>{symbol}</span>
                 })}
               </div>

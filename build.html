@@ -22,26 +22,36 @@
         background: #fff;
       }
     </style>
-    <title>react-stock-ticker CDN</title>
+    <title>react-stock-ticker Local Build</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react",
+          "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
+          "react-dom/": "https://esm.sh/react-dom/",
+          "react-stock-ticker": "./dist/stockTicker.js",
+          "react-stock-ticker/hooks": "./dist/hooks.js",
+          "react-stock-ticker/utils": "./dist/utils.js",
+          "htm": "https://esm.sh/htm"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module">
-      import { useEffect, useState, createElement } from 'https://esm.sh/react'
-      import { createRoot } from 'https://esm.sh/react-dom/client'
-      import { StockTicker } from 'https://esm.sh/react-stock-ticker'
-      import {
-        usePrevious,
-        useLocaleMetadata,
-      } from 'https://esm.sh/react-stock-ticker/hooks'
-      import htm from 'https://esm.sh/htm'
+      import { useEffect, useState, createElement } from 'react'
+      import { createRoot } from 'react-dom/client'
+      import { StockTicker } from 'react-stock-ticker'
+      import { usePrevious, useLocaleMetadata } from 'react-stock-ticker/hooks'
+      import htm from 'htm'
 
       const html = htm.bind(createElement)
       const getRandomBetween = (min, max) => {
         return Math.random() * (max - min) + min
       }
       const App = () => {
-        const [price, setPrice] = useState(999.85)
+        const [price, setPrice] = useState(432.85)
         const prevPrice = usePrevious(price)
         const { formatter } = useLocaleMetadata('en-US')
 
