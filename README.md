@@ -18,11 +18,7 @@ https://morganney.github.io/react-stock-ticker
 
 ```html
 <script type="module">
-  import React, {
-    useEffect,
-    useState,
-    createElement,
-  } from 'https://esm.sh/react'
+  import { useEffect, useState, createElement } from 'https://esm.sh/react'
   import { createRoot } from 'https://esm.sh/react-dom/client'
   import { StockTicker } from 'https://esm.sh/react-stock-ticker'
   import htm from 'https://esm.sh/htm'
