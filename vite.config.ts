@@ -8,7 +8,7 @@ export default defineConfig({
     outDir: 'build',
   },
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     include: ['test/stockTicker.tsx'],
     coverage: {
       provider: 'v8',
