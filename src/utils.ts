@@ -126,8 +126,14 @@ const getSymbolsForLocale = (locale: Locale): [string[], Intl.NumberFormat] => {
   return [symbols, formatter]
 }
 export const getLocaleMetadata = (locale: Locale) => {
-  const intlLocale = new Intl.Locale(locale)
-  const documentDirection = getComputedStyle(document.body).direction
+  const intlLocale =
+    typeof Intl !== 'undefined' && typeof Intl.Locale === 'function'
+      ? new Intl.Locale(locale)
+      : null
+  const documentDirection =
+    typeof document !== 'undefined' && document.body
+      ? getComputedStyle(document.body).direction
+      : undefined
   const [symbols, formatter] = getSymbolsForLocale(locale)
   const meta = {
     symbols,
@@ -136,7 +142,7 @@ export const getLocaleMetadata = (locale: Locale) => {
     direction: documentDirection ?? 'ltr',
   }
 
-  if (typeof intlLocale.getTextInfo === 'function') {
+  if (intlLocale && typeof intlLocale.getTextInfo === 'function') {
     meta.direction = intlLocale.getTextInfo().direction
   }
 
