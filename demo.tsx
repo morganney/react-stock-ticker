@@ -57,11 +57,11 @@ const Demo = () => {
     const fontSet = typeof document !== 'undefined' ? document.fonts : undefined
     const fontPromises: Promise<unknown>[] = []
 
-    if (fontSet?.ready && typeof fontSet.ready.then === 'function') {
+    if (fontSet?.ready) {
       fontPromises.push(fontSet.ready)
     }
 
-    if (typeof window !== 'undefined' && 'FontFace' in window) {
+    if (fontSet && typeof window !== 'undefined' && 'FontFace' in window) {
       const roboto = new FontFace(
         'Roboto',
         'url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2)'
@@ -69,22 +69,19 @@ const Demo = () => {
 
       fontPromises.push(
         roboto.load().then((face) => {
-          fontSet?.add?.(face)
+          fontSet.add(face)
         })
       )
     }
 
-    if (fontPromises.length === 0) {
-      markLoaded()
+    const tracker =
+      fontPromises.length === 0
+        ? Promise.resolve()
+        : Promise.all(
+            fontPromises.map((promise) => promise.catch(() => undefined))
+          )
 
-      return () => {
-        cancelled = true
-      }
-    }
-
-    Promise.all(fontPromises.map((promise) => promise.catch(() => undefined)))
-      .then(markLoaded)
-      .catch(markLoaded)
+    void tracker.then(markLoaded)
 
     return () => {
       cancelled = true
