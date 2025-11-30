@@ -43,16 +43,52 @@ const Demo = () => {
   )
 
   useEffect(() => {
-    document.fonts.addEventListener('loadingdone', () => {
+    let cancelled = false
+
+    const markLoaded = () => {
+      if (cancelled) {
+        return
+      }
+
       ref.current?.classList.add('loaded')
       setLoaded(true)
-    })
-    document.fonts.add(
-      new FontFace(
+    }
+
+    const fontSet = typeof document !== 'undefined' ? document.fonts : undefined
+    const fontPromises: Promise<unknown>[] = []
+
+    if (fontSet?.ready && typeof fontSet.ready.then === 'function') {
+      fontPromises.push(fontSet.ready)
+    }
+
+    if (typeof window !== 'undefined' && 'FontFace' in window) {
+      const roboto = new FontFace(
         'Roboto',
         'url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2)'
       )
-    )
+
+      fontPromises.push(
+        roboto.load().then((face) => {
+          fontSet?.add?.(face)
+        })
+      )
+    }
+
+    if (fontPromises.length === 0) {
+      markLoaded()
+
+      return () => {
+        cancelled = true
+      }
+    }
+
+    Promise.all(fontPromises.map((promise) => promise.catch(() => undefined)))
+      .then(markLoaded)
+      .catch(markLoaded)
+
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   useEffect(() => {
